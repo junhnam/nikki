@@ -1,2 +1,6 @@
-// ここに必要な場合はwindowへの安全なAPIを追加できます
-// MVP段階では空のまま 
+const { contextBridge, ipcRenderer } = require('electron');
+
+contextBridge.exposeInMainWorld('api', {
+  saveEntry: (entry) => ipcRenderer.invoke('save-entry', entry),
+  getEntries: () => ipcRenderer.invoke('get-entries'),
+}); 
